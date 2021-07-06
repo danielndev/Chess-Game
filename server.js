@@ -1,19 +1,23 @@
 const express = require('express')
+const app = express()
 const path = require('path');
-const httpServer = require("http").createServer();
+const httpServer = require("http").createServer(app);
 
 const options = {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://danielnestor-chessgame.herokuapp.com/",
         methods: ["GET", "POST"]
       }
 }
+const PORT = process.env.PORT || 80;
 
-const io = require("socket.io")(httpServer, options);
+httpServer.listen(PORT, () => {
+  console.log("App Listening at port: " + PORT)
+});
 
-const app = express()
+const io = require("socket.io")(httpServer);
 
-const PORT = 3000;
+
 
 app.set('view engine', 'ejs');
 
@@ -21,10 +25,6 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
   res.render('index')
-})
-
-app.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`)
 })
 
 io.on("connection", socket => {
@@ -79,5 +79,3 @@ io.on("connection", socket => {
 })
 
 
-
-httpServer.listen(3001);

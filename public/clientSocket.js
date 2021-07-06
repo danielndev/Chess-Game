@@ -1,5 +1,5 @@
-const socketUrl = "http://localhost:3001/";
-const publicUrl = "http://localhost:3000/static/";
+const socketUrl = "https://danielnestor-chessgame.herokuapp.com/";
+const publicUrl = "https://danielnestor-chessgame.herokuapp.com/static/";
 const socket = io(socketUrl);
 
 let currentRoom;
